@@ -12,7 +12,6 @@ import os
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg #NavigationToolbar2TkAgg
 from matplotlib.figure import Figure
-#from eye import age
 
 
 host = socket.gethostname()
@@ -24,23 +23,12 @@ c,addr=s.accept()
 
 global cb
 global w
-# store the video stream object and output path, then initialize
-# the most recently read frame, thread for reading frames, and
-# the thread stop event
-#self.vs = vs
-#self.outputPath = outputPath
-#self.frame = None
-#self.thread = None
-#self.stopEvent = None
 
 # initialize the root window and image panel
 root = tki.Tk()
 panel = None
 
-#self.image()
-# create a button, that when pressed, will take the current
-# frame and save it to file
-
+#different windows
 
 def create_window1(event):
     window1 = tki.Toplevel(root)
@@ -52,8 +40,8 @@ def create_window1(event):
     l=tki.Label(window1, text=v)
     l.pack()
     
-
     """
+    # if you want to add a graph
     figure = plt.Figure(figsize=(6,5), dpi=100)
     ax = figure.add_subplot(111)
     chart_type = FigureCanvasTkAgg(figure, window1)
@@ -80,6 +68,8 @@ def create_window3(event):
     #window3.configure(bg="LightCyan2")
     #rightFrame = tki.Frame(window3,width=600, height = 370)
     
+    # create buttons, that when pressed, will control movement
+    
     up = tki.Button(window3, text=" ^ ",command=moveup)
     up.place(x = 300, y = 50)
     #up.bind("u",move(0))
@@ -102,15 +92,6 @@ def create_window3(event):
     stop.config(height = 2, width = 2,bg = "powder blue", fg = "steel blue")
 
 
-    #rightFrame.pack(side="right", padx=50, pady=50)
-    """
-    close = tki.Button(window3, text="Close",fg="red",command= self.close_window)
-    close.bind("x",self.close_window)
-    close.place(x = 5, y = 450)
-    close.config(height = 2, width = 77)
-    #close.pack(side="bottom", fill="both", expand="yes")#, padx=10,pady=10)
-    """
-
 def print_value(val): 
     #print(val)
     #global cb
@@ -129,10 +110,8 @@ def takeSnapshot(event):
     #print(cb.get())
     
     var="r "+cb.get()
-    #print(var)
 
     str1 = var
-    #print(str1.encode())
     c.send(str1.encode())
     v= int(c.recv(1024).decode())
 
@@ -141,27 +120,22 @@ def takeSnapshot(event):
     w.focus()
 
 def moveup():
-    #age("u")
     str="u"
     c.send(str.encode())
 
 def movedown():
-    #age("d")
     str="d"
     c.send(str.encode())
 
 def moveleft():
-    #age("l")
     str="l"
     c.send(str.encode())
 
 def moveright():
-    #age("r")
     str="r"
     c.send(str.encode())
 
 def movestop():
-    #age("s")
     str="s"
     c.send(str.encode())
 
@@ -198,8 +172,6 @@ data=("1", "2", "3", "4","5")
 cb=Combobox(root, values=data,text="Motor",width="15",textvariable=var)
 #cb.focus()
 root.bind("<<ComboboxSelected>>",takeSnapshot)
-#print(cb.get())
-#cb.['values']
 cb.pack(side="bottom", fill="both", expand="yes", padx=10,pady=10)
 
 label = tki.Label(root,text = "Choose motor number")
@@ -208,19 +180,9 @@ label.pack(side="bottom")
 
 
 
-root.title('Hello Python')
+root.title('RATAM')
 
-# start a thread that constantly pools the video sensor for
-# the most recently read frame
-#stopEvent = threading.Event()
-#thread = threading.Thread(target=self.image, args=())
-#thread.start()
-
-# set a callback to handle when the window is closed
-#self.root.wm_title("PyImageSearch PhotoBooth")
-#root.wm_protocol("WM_DELETE_WINDOW", onClose)
-
-#image()  #Display 2
+#image()  #Display 
 img = ImageTk.PhotoImage(Image.open("r5.jpg"))
 panel = tki.Label(root, image = img)
 panel.pack(side = "bottom", fill = "both", expand = "yes")
